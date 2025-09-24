@@ -17,10 +17,10 @@ import javafx.geometry.Pos;
 public class App extends Application 
 {
     private void applyHoverEffect(Button button) {
-        ScaleTransition st = new ScaleTransition(Duration.millis(200), button);
+        ScaleTransition st = new ScaleTransition(Duration.millis(100), button);
         button.setOnMouseEntered(e -> {
-            st.setToX(1.2);
-            st.setToY(1.2);
+            st.setToX(1.1);
+            st.setToY(1.1);
             st.playFromStart();
         });
         button.setOnMouseExited(e -> {
@@ -29,11 +29,12 @@ public class App extends Application
             st.playFromStart();
         });
         button.setOnAction(e -> {
-            st.setToX(0.8);  // encoge
-            st.setToY(0.8);
+            st.setToX(1.0);  // encoge
+            st.setToY(1.0);
             st.setAutoReverse(true); // vuelve al tamaño original
-            st.setCycleCount(2);    // ida y vuelta
+            st.setCycleCount(1);    // ida y vuelta
             st.playFromStart();
+            button.disarm();
         });
     }
     @Override
@@ -45,11 +46,13 @@ public class App extends Application
         Button btn1 = new Button("Botón 1");
         Button btn2 = new Button("Botón 2");
         Button btn3 = new Button("Botón 3");
+        Button btn4 = new Button("Botón 4");
+        Button btn5 = new Button("Botón 5");
 
         //Fila de botones
         HBox fila = new HBox(10); // 10 = espacio entre botones
         fila.setAlignment(Pos.CENTER); // opcional, centra los botones
-        fila.getChildren().addAll(btn1, btn2, btn3);
+        fila.getChildren().addAll(btn1, btn2, btn3, btn4, btn5);
         VBox root = new VBox(20); // 20 = espacio vertical entre elementos
         root.getChildren().add(fila); // añadimos la fila al layout principal
 
@@ -73,7 +76,7 @@ public class App extends Application
             "-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, lightblue, pink); " + //degradado
             "-fx-text-fill: white; " + //color de texto
             "-fx-font-family: 'Arial Black'; " + //tipo de letra
-            "-fx-font-size: 24px; " + //tamaño de letra
+            "-fx-font-size: 18px; " + //tamaño de letra
             "-fx-font-weight: bold; " + //negrita
             "-fx-background-radius: 15px;" + //bordes redondeados
             "-fx-border-color: pink; " + //color del borde
@@ -84,9 +87,13 @@ public class App extends Application
     
         btn2.setStyle(btn1.getStyle());
         btn3.setStyle(btn1.getStyle());
+        btn4.setStyle(btn1.getStyle());
+        btn5.setStyle(btn1.getStyle());
         applyHoverEffect(btn1);
         applyHoverEffect(btn2);
         applyHoverEffect(btn3);
+        applyHoverEffect(btn4);
+        applyHoverEffect(btn5);
         
         //Layout simple
         root.setAlignment(Pos.TOP_CENTER);
