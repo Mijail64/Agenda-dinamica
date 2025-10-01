@@ -11,13 +11,16 @@ import javafx.scene.control.*;  // Label, Button, TextField, etc.
 import javafx.scene.layout.*;   // VBox, HBox, GridPane
 import javafx.scene.shape.*;    // Circle, Rectangle, etc.
 import javafx.scene.paint.*;    // Color, Paint
+
+import com.mijail64.Style;
+
 import javafx.animation.*; 
 import javafx.geometry.Pos;
 
 public class App extends Application 
 {
     private void applyHoverEffect(Button button) {
-        ScaleTransition st = new ScaleTransition(Duration.millis(100), button);
+        ScaleTransition st = new ScaleTransition(Duration.millis(50), button);
         button.setOnMouseEntered(e -> {
             st.setToX(1.1);
             st.setToY(1.1);
@@ -29,8 +32,8 @@ public class App extends Application
             st.playFromStart();
         });
         button.setOnAction(e -> {
-            st.setToX(1.0);  // encoge
-            st.setToY(1.0);
+            st.setToX(0.9);  // encoge
+            st.setToY(0.9);
             st.setAutoReverse(true); // vuelve al tamaño original
             st.setCycleCount(1);    // ida y vuelta
             st.playFromStart();
@@ -40,68 +43,76 @@ public class App extends Application
     @Override
     public void start(Stage stage) {
         //Elementos
-        Label label1 = new Label("¡Hola Agenda!");
-        Label label2 = new Label("Nueva agenda");
+        Label labelM = new Label("¡Hola Agenda!");
+        Label label1C = new Label("Nueva agenda");
         Label label3 = new Label("Preparate!");
-        Button btn1 = new Button("Botón 1");
-        Button btn2 = new Button("Botón 2");
-        Button btn3 = new Button("Botón 3");
+        Button btn1m = new Button("Crear Agenda");
+        Button btn2m = new Button("Modificar Agenda");
+        Button btn3 = new Button("Volver");
         Button btn4 = new Button("Botón 4");
         Button btn5 = new Button("Botón 5");
 
         //Fila de botones
-        HBox fila = new HBox(10); // 10 = espacio entre botones
+        HBox fila = new HBox(20); // 10 = espacio entre botones
         fila.setAlignment(Pos.CENTER); // opcional, centra los botones
-        fila.getChildren().addAll(btn1, btn2, btn3, btn4, btn5);
+        fila.getChildren().addAll(btn1m, btn2m);
         VBox root = new VBox(20); // 20 = espacio vertical entre elementos
-        root.getChildren().add(fila); // añadimos la fila al layout principal
-
-        //plantilla de label
-        label1.setStyle(
-            // "-fx-background-color: #a265c3AA; " + //color de fondo
-            "-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, lightgreen, pink); " + //degradado
-            "-fx-text-fill: lightpink; " + //color de texto
-            "-fx-font-family: 'Arial Black'; " + //tipo de letra
-            "-fx-font-size: 64px; " + //tamaño de letra
-            "-fx-font-weight: bold; " + //negrita
-            "-fx-background-radius: 25px;" + //bordes redondeados
-            "-fx-border-color: pink; " + //color del borde
-            "-fx-border-width: 2px; " + //grosor del borde
-            "-fx-border-radius: 25px;" + //bordes redondeados del borde
-            "-fx-effect: dropshadow(three-pass-box, gray, 5, 0, 0, 0);" //sombra
-        );
-
-        //plantilla de boton
-        btn1.setStyle(
-            "-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, lightblue, pink); " + //degradado
-            "-fx-text-fill: white; " + //color de texto
-            "-fx-font-family: 'Arial Black'; " + //tipo de letra
-            "-fx-font-size: 18px; " + //tamaño de letra
-            "-fx-font-weight: bold; " + //negrita
-            "-fx-background-radius: 15px;" + //bordes redondeados
-            "-fx-border-color: pink; " + //color del borde
-            "-fx-border-width: 2px; " + //grosor del borde
-            "-fx-border-radius: 15px;" + //bordes redondeados del borde
-            "-fx-effect: dropshadow(three-pass-box, gray, 5, 0, 0, 0);" //sombra
-        );
-    
-        btn2.setStyle(btn1.getStyle());
-        btn3.setStyle(btn1.getStyle());
-        btn4.setStyle(btn1.getStyle());
-        btn5.setStyle(btn1.getStyle());
-        applyHoverEffect(btn1);
-        applyHoverEffect(btn2);
-        applyHoverEffect(btn3);
-        applyHoverEffect(btn4);
-        applyHoverEffect(btn5);
         
+
+        //---------------------Estilos---------------------
+        Style.Label(labelM, 100);
+        Style.Boton(btn1m, 32);
+        Style.Boton(btn2m, 32);
+    
+        Style.AnimacionBoton(btn1m);
+        Style.AnimacionBoton(btn2m);
+        
+        //---------------------Eventos---------------------
+        // Evento para el botón "Crear Agenda"
+        btn1m.setOnAction(e -> {
+            VBox nuevaRoot = new VBox(20);
+            nuevaRoot.setAlignment(Pos.CENTER);
+            Label nuevaLabel = new Label("Menú Crear Agenda");
+            Style.Label(nuevaLabel, 50);
+            Button volverBtn = new Button("Volver");
+            Style.Boton(volverBtn, 24);
+            Style.AnimacionBoton(volverBtn);
+
+            nuevaRoot.getChildren().addAll(nuevaLabel, volverBtn);
+
+            // Usar el mismo fondo que la escena principal
+            Image img = new Image(getClass().getResource("/Ely.png").toExternalForm());
+            BackgroundImage bg = new BackgroundImage(
+            img,
+            BackgroundRepeat.NO_REPEAT,
+            BackgroundRepeat.NO_REPEAT,
+            BackgroundPosition.CENTER,
+            new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, true)
+        );
+        nuevaRoot.setBackground(new Background(bg));
+
+            Scene nuevaScene = new Scene(nuevaRoot, 1000, 500);
+
+            Stage actualStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+            // Espera de 0.5 segundos antes de cambiar la escena
+            PauseTransition pausa = new PauseTransition(Duration.millis(500));
+            pausa.setOnFinished(ev -> actualStage.setScene(nuevaScene));
+            pausa.play();
+
+            volverBtn.setOnAction(ev -> {
+                actualStage.setScene(((Node)btn1m).getScene());
+            });
+        });
+
+
+
         //Layout simple
-        root.setAlignment(Pos.TOP_CENTER);
+        root.setAlignment(Pos.CENTER);
 
-        root.getChildren().add(label1);
-        root.getChildren().add(label2);
-        root.getChildren().add(label3);
-
+        root.getChildren().add(labelM);
+        //root.getChildren().add(label2);
+        //root.getChildren().add(label3);
+        root.getChildren().add(fila); // añadimos la fila al layout principal
         Image img = new Image(getClass().getResource("/Ely.png").toExternalForm());
         BackgroundImage bg = new BackgroundImage(
             img,
@@ -121,6 +132,9 @@ public class App extends Application
         stage.setScene(scene);
         stage.show();
     }
+
+
+
     public static void main(String[] args) {
         launch(args); // arranca la aplicación JavaFX
     }
