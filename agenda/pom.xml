@@ -27,33 +27,18 @@
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
-      <version>21.0.2</version>
+      <version>21.0.4</version>
     </dependency>
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-fxml</artifactId>
-      <version>21.0.2</version>
+      <version>21.0.4</version>
     </dependency>
     <dependency>
       <groupId>org.controlsfx</groupId>
       <artifactId>controlsfx</artifactId>
       <version>11.2.1</version>
     </dependency>
-    <dependency>
-        <groupId>org.openjfx</groupId>
-        <artifactId>javafx-controls</artifactId>
-        <version>21.0.4</version>
-    </dependency>
-    <dependency>
-        <groupId>org.openjfx</groupId>
-        <artifactId>javafx-controls</artifactId>
-        <version>21.0.4</version>
-    </dependency>
-  <dependency>
-    <groupId>org.openjfx</groupId>
-    <artifactId>javafx-fxml</artifactId>
-    <version>21.0.4</version>
-  </dependency>
   </dependencies>
   <build>
     <plugins>
@@ -72,7 +57,7 @@
         <artifactId>exec-maven-plugin</artifactId>
         <version>3.5.1</version>
         <configuration>
-            <main>com.mijail64.agenda.Main</main>
+            <main>com.mijail64.App</main>
         </configuration>
       </plugin>
 
@@ -81,26 +66,9 @@
         <artifactId>javafx-maven-plugin</artifactId>
         <version>0.0.8</version>
         <configuration>
-          <mainClass>com.mijail64.agenda.App</mainClass>
+          <mainClass>com.mijail64.App</mainClass>
         </configuration>
       </plugin>
-
-      <plugin>
-        <groupId>org.openjfx</groupId>
-        <artifactId>javafx-maven-plugin</artifactId>
-        <version>0.0.8</version>
-        <configuration>
-          <mainClass>com.mijail64.agenda.App</mainClass>
-        </configuration>
-      </plugin>
-      <plugin>
-          <groupId>org.openjfx</groupId>
-          <artifactId>javafx-maven-plugin</artifactId>
-          <version>0.0.8</version>
-          <configuration>
-              <mainClass>com.mijail64.App</mainClass>
-          </configuration>
-       </plugin>
     </plugins>
   </build>
   

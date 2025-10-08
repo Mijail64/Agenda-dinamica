@@ -1,0 +1,19 @@
+añadir una funcion para agenda estatica
+
+agenda inteligente
+
+cambiar color a las celdas
+
+descripcion con textArea
+
+cambiar fondo
+
+guardar agendas
+
+agregar una barra de carga
+
+agregar tags para un combo box
+
+boton de configuracion
+
+animacion de guardando a un lado, quiza a la esquina inferior 
